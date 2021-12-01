@@ -10,6 +10,7 @@ public class LockerController : MonoBehaviour
     public static int resultTruePos;
     public static bool winIsActiv;
     private AudioManager audioManager;
+    [SerializeField] private GameObject Locker;
 
     // Start is called before the first frame update
     void Start()
@@ -19,9 +20,16 @@ public class LockerController : MonoBehaviour
 
     private void Update()
     {
+        if (!Locker.activeInHierarchy)
+        {
+            shtif1 = 0;
+            shtif2 = 0;
+            shtif3 = 0;
+            shtif4 = 0;
+            shtif5 = 0;
+        }
         Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero, 100);
-
         if (Input.GetMouseButtonDown(0) && hit)
         {
             if (hit.collider.gameObject.CompareTag("Shtift"))
