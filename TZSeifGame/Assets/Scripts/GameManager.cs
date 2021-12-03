@@ -16,7 +16,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject panelWinSeifOpen;
     [Tooltip("Панель UI Сейф Открыт")]
     [SerializeField] private GameObject panelSeifOpen;
-    private AudioManager audioManager;
     private Animator LockerAnim;
     public static bool defaultPositionActiv;
 
@@ -35,7 +34,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         panelLocker.SetActive(false);
         panelWinVFX.SetActive(true);
-        AudioManager.Instance.AudioPlay(audioManager.seifOpen);
+        AudioManager.Instance.AudioPlay(AudioManager.Instance.seifOpen);
         panelWinSeifOpen.SetActive(true);
         CoinVFX.SetActive(true);
         panelSeifOpen.SetActive(true);
