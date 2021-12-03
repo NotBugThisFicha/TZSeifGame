@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        audioManager = GetComponent<AudioManager>();
         LockerAnim = panelLocker.GetComponent<Animator>();
         ShtiftManager.OnDetectEvent.AddListener(OnDetectWinEvent);
         BackGroundTouch.OnDetectEvent.AddListener(OnDetectCloseWindEvent);
@@ -36,7 +35,7 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         panelLocker.SetActive(false);
         panelWinVFX.SetActive(true);
-        audioManager.AudioPlay(audioManager.seifOpen);
+        AudioManager.Instance.AudioPlay(audioManager.seifOpen);
         panelWinSeifOpen.SetActive(true);
         CoinVFX.SetActive(true);
         panelSeifOpen.SetActive(true);
@@ -56,7 +55,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Hold");
         LockerAnim.SetTrigger("CloseWindow");
-        audioManager.AudioPlay(audioManager.DeactivLocker);
+        AudioManager.Instance.AudioPlay(AudioManager.Instance.DeactivLocker);
         defaultPositionActiv = true;
         yield return new WaitForSeconds(0.5f);
         panelLocker.gameObject.SetActive(false);

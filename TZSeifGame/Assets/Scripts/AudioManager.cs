@@ -10,11 +10,17 @@ public class AudioManager : MonoBehaviour
     public AudioClip pruzhinaOtskok;
     public AudioClip DeactivLocker;
 
+    public static AudioManager Instance;    
+
+    public void Awake()                   
+    {
+        Instance = this;
+    }
+
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
     }
 
     public void AudioPlay(AudioClip clip)
