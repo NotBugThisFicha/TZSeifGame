@@ -13,13 +13,9 @@ public class BackGroundTouch : MonoBehaviour, IPointerDownHandler
         if(InteractSeif.closeWindIsActiv)
         {
             InteractSeif.closeWindIsActiv = false;
-            StartCoroutine(FireEvent());
+            FireEvent();
         }
     }
 
-    private IEnumerator FireEvent()
-    {
-        OnDetectEvent.Invoke();
-        yield return null;
-    }
+    private void FireEvent() => OnDetectEvent.Invoke();
 }

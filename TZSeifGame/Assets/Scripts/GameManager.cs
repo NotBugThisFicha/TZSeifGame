@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,29 +21,28 @@ public class GameManager : MonoBehaviour
     public static bool defaultPositionActiv;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         LockerAnim = panelLocker.GetComponent<Animator>();
         ShtiftManager.OnDetectEvent.AddListener(OnDetectWinEvent);
         BackGroundTouch.OnDetectEvent.AddListener(OnDetectCloseWindEvent);
     }
 
-    private IEnumerator WinerCoroutine()
+    private void WinerPanels()
     {
         Debug.Log("Winer");
         seifInteract.SetActive(false);
-        yield return new WaitForSeconds(0.3f);
+        InteractSeif.closeWindIsActiv = false;
         panelLocker.SetActive(false);
         panelWinVFX.SetActive(true);
         AudioManager.Instance.AudioPlay(AudioManager.Instance.seifOpen);
         panelWinSeifOpen.SetActive(true);
         CoinVFX.SetActive(true);
         panelSeifOpen.SetActive(true);
-        StopCoroutine(WinerCoroutine());
     }
     private void OnDetectWinEvent()
     {
-        StartCoroutine(WinerCoroutine());
+        WinerPanels();
     }
 
     private void OnDetectCloseWindEvent()
@@ -61,5 +61,11 @@ public class GameManager : MonoBehaviour
         defaultPositionActiv = false;
         seifInteract.SetActive(true);
         StopCoroutine(HoldDeactiv());
+    }
+
+    public void Restart()
+    {
+        UnlockStats.Reset();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 0);
     }
 }

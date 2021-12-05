@@ -20,7 +20,7 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
     public static UnityEvent OnDetectEvent = new UnityEvent();  // Fire Event
 
 
-    void Start()
+    private void Start()
     {
         animator = GetComponent<Animator>();
         image = GetComponent<Image>();
@@ -28,7 +28,14 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
         SetTruePosition();
     }
 
-    void Update()
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        ShtiftController();
+        UnlockStats.AllUnlock();
+    }
+
+
+    private void Update()
     {
         if (GameManager.defaultPositionActiv)
         {
@@ -112,10 +119,8 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
                 break;
         }
     }
-
-    public void OnPointerDown(PointerEventData eventData)
+    private void ShtiftController()
     {
-        
         shtiftPosClone++;
         animator.enabled = true;
         animator.SetInteger("State", shtiftPosClone);
@@ -136,9 +141,7 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
             UnlockShtift(out UnlockStats.shtif4, 4);
         if (id == 5)
             UnlockShtift(out UnlockStats.shtif5, 5);
-        UnlockStats.AllUnlock();
     }
-
     private void UnlockShtift(out int shtift, int id)
     {
         shtift = 0;
