@@ -18,10 +18,11 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
     private Vector3 vectorTrue;
     private Animator animator;
     public static UnityEvent OnDetectEvent = new UnityEvent();  // Fire Event
-
+    private AudioManager audioManager;
 
     private void Start()
     {
+        audioManager = AudioManager.Instance;
         animator = GetComponent<Animator>();
         image = GetComponent<Image>();
         SetDefaultPosition();
@@ -124,11 +125,11 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
         shtiftPosClone++;
         animator.enabled = true;
         animator.SetInteger("State", shtiftPosClone);
-        AudioManager.Instance.AudioPlay(AudioManager.Instance.switchShtift);
+        audioManager.AudioPlay(audioManager.switchShtift);
         if (shtiftPosClone == 7)
         {
             animator.SetInteger("State", shtiftPosClone);
-            AudioManager.Instance.AudioPlay(AudioManager.Instance.pruzhinaOtskok);
+            audioManager.AudioPlay(audioManager.pruzhinaOtskok);
             shtiftPosClone = 0;
         }
         if (id == 1)
@@ -148,7 +149,7 @@ public class ShtiftManager : MonoBehaviour, IPointerDownHandler
         if (shtiftPosClone == truePos && this.id == id)
         {
             shtift++;
-            AudioManager.Instance.AudioPlay(AudioManager.Instance.unlockShtift);
+            audioManager.AudioPlay(audioManager.unlockShtift);
         }
         else if(this.id == id) shtift = 0;
     }

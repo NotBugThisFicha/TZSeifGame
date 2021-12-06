@@ -19,10 +19,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject panelSeifOpen;
     private Animator LockerAnim;
     public static bool defaultPositionActiv;
+    private AudioManager audioManager;
 
     // Start is called before the first frame update
     private void Start()
     {
+        audioManager = AudioManager.Instance;
         LockerAnim = panelLocker.GetComponent<Animator>();
         ShtiftManager.OnDetectEvent.AddListener(OnDetectWinEvent);
         BackGroundTouch.OnDetectEvent.AddListener(OnDetectCloseWindEvent);
@@ -35,7 +37,7 @@ public class GameManager : MonoBehaviour
         InteractSeif.closeWindIsActiv = false;
         panelLocker.SetActive(false);
         panelWinVFX.SetActive(true);
-        AudioManager.Instance.AudioPlay(AudioManager.Instance.seifOpen);
+        audioManager.AudioPlay(audioManager.seifOpen);
         panelWinSeifOpen.SetActive(true);
         CoinVFX.SetActive(true);
         panelSeifOpen.SetActive(true);
@@ -54,7 +56,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Hold");
         LockerAnim.SetTrigger("CloseWindow");
-        AudioManager.Instance.AudioPlay(AudioManager.Instance.DeactivLocker);
+        audioManager.AudioPlay(audioManager.DeactivLocker);
         defaultPositionActiv = true;
         yield return new WaitForSeconds(0.5f);
         panelLocker.gameObject.SetActive(false);
